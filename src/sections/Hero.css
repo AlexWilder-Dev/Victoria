@@ -1,0 +1,242 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero__stage {
+  position: relative;
+}
+
+/* ---------- The building ---------- */
+
+.facade {
+  position: relative;
+  height: max(52svh, 330px);
+  container-type: size;
+  overflow: hidden;
+  background: #0d0f14;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--rise)), 0 100%);
+}
+.facade__inner {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
+  width: max(100cqw, calc(100cqh * 656 / 746));
+  aspect-ratio: 656 / 746;
+}
+.facade__img,
+.facade__light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.facade__img {
+  transition: filter 1.6s ease;
+}
+.facade__dusk,
+.facade__glow,
+.facade__light {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.facade__dusk {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #23377a 0%, #2c3060 26%, #3a3040 50%, #1a1512 100%);
+  mix-blend-mode: multiply;
+}
+.facade__light--gold {
+  filter: brightness(1.75) saturate(1.45) contrast(1.12);
+}
+.facade__light--lamp {
+  filter: brightness(2.1) saturate(1.4);
+}
+.facade__light--sign {
+  filter: brightness(1.15) contrast(1.05);
+}
+.facade__light--window {
+  filter: brightness(1.15) sepia(0.5) saturate(1.7) hue-rotate(-8deg);
+}
+.facade__glow {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  transition-delay: 0.9s;
+  background:
+    radial-gradient(ellipse 14% 3% at 49.7% 61.6%, rgba(255, 205, 120, 0.5), transparent 100%),
+    radial-gradient(
+      circle at 82.6% 66.6%,
+      rgba(255, 220, 150, 0.95) 0,
+      rgba(255, 170, 80, 0.35) 1.4%,
+      transparent 4.5%
+    ),
+    radial-gradient(circle at 24.5% 41.7%, rgba(255, 220, 150, 0.85) 0, rgba(255, 180, 90, 0.25) 1%, transparent 3.5%),
+    radial-gradient(ellipse 6% 4% at 76% 66%, rgba(255, 170, 80, 0.35), transparent 100%),
+    radial-gradient(ellipse 4% 3% at 43% 67.6%, rgba(255, 170, 80, 0.35), transparent 100%);
+  animation: hum 7s ease-in-out infinite;
+}
+@keyframes hum {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15);
+  }
+}
+
+.facade[data-lit='evening'] .facade__img {
+  filter: brightness(0.85) saturate(0.85) contrast(1.05);
+}
+.facade[data-lit='evening'] .facade__dusk {
+  opacity: 0.82;
+}
+.facade[data-lit='late'] .facade__img {
+  filter: brightness(0.74) saturate(0.75) contrast(1.08);
+}
+.facade[data-lit='late'] .facade__dusk {
+  opacity: 0.94;
+}
+.facade[data-lit='evening'] :is(.facade__light, .facade__glow),
+.facade[data-lit='late'] :is(.facade__light, .facade__glow) {
+  opacity: 1;
+}
+.facade[data-lit='evening'] .facade__light--window {
+  opacity: 0.8;
+}
+
+/* ---------- Tile: what the hour is about ---------- */
+
+.hero__tile {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  right: 16px;
+  top: calc(max(52svh, 330px) - var(--rise) - 36vw);
+  width: 31vw;
+  aspect-ratio: 3 / 4;
+  background: #000;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+.hero__tile--wide {
+  width: 46vw;
+  aspect-ratio: 16 / 10;
+  top: calc(max(52svh, 330px) - var(--rise) - 26vw);
+}
+.hero__tile img,
+.hero__tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__tile figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 26px 10px 8px;
+  font-size: 0.6rem;
+  color: var(--cream);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+}
+
+/* ---------- Copy ---------- */
+
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  padding: 18px var(--pad) 36px;
+}
+.hero__kicker {
+  color: var(--hi);
+  font-size: 0.68rem;
+  margin-bottom: 16px;
+}
+.hero__title {
+  font-size: clamp(2.3rem, var(--fit-m, 12vw), 4.8rem);
+}
+.hero__line {
+  display: block;
+  padding-left: calc(var(--i) * 0.55em);
+}
+.hero__title em {
+  color: var(--hi);
+}
+.hero__sub {
+  margin-top: 20px;
+  max-width: 31em;
+}
+.hero__actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+}
+
+@media (max-width: 899px) {
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Desktop: copy left, building right, strip along the bottom ---------- */
+
+@media (min-width: 900px) {
+  .hero {
+    min-height: max(100svh, 760px);
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+  .hero__stage {
+    display: flex;
+    align-items: center;
+    min-height: 640px;
+  }
+  .facade {
+    position: absolute;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: 53%;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero__copy {
+    width: 56%;
+    max-width: 860px;
+    padding: calc(var(--header-h) + 48px) 0 64px clamp(24px, 5vw, 88px);
+  }
+  .hero__kicker {
+    font-size: 0.76rem;
+    margin-bottom: 26px;
+  }
+  .hero__title {
+    font-size: clamp(3rem, var(--fit-d, 7vw), 7.6rem);
+  }
+  .hero__sub {
+    margin-top: 28px;
+    padding-left: 0.2em;
+    max-width: min(31em, calc(41vw - 60px));
+  }
+  .hero__actions {
+    margin-top: 36px;
+  }
+  .hero__tile {
+    top: auto;
+    right: auto;
+    left: 45%;
+    bottom: 36px;
+    width: clamp(170px, 14vw, 240px);
+  }
+  .hero__tile--wide {
+    width: clamp(260px, 21vw, 340px);
+    left: 43.5%;
+  }
+  .hero__tile figcaption {
+    font-size: 0.66rem;
+    padding: 30px 12px 10px;
+  }
+}

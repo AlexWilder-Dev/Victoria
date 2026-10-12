@@ -1,0 +1,29 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 40;
+  letter-spacing: 0.42em;
+  font-size: 1.05rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wordmark__word:last-of-type {
+  margin-right: -0.42em;
+}
+.wordmark__head {
+  height: 2.2em;
+  width: auto;
+  margin-block: -0.4em;
+}
+.pal-green .wordmark__head,
+.pal-ink .wordmark__head,
+.pal-night .wordmark__head {
+  filter: brightness(1.15);
+}
+.pal-cream .wordmark__head,
+.pal-sand .wordmark__head {
+  filter: contrast(1.25) brightness(0.8);
+}

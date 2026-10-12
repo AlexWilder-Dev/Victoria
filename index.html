@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-GB" data-mode="day">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The Victoria, Battersea · Eat well. Drink better. Stay late.</title>
+    <meta
+      name="description"
+      content="The Vic: a late night gastropub on Queenstown Road, Battersea, since 1869. Burger Night Mondays, Steak Night Thursdays, Saturday brunch, Sunday roast, and the bar open till 2am Friday and Saturday."
+    />
+    <meta name="theme-color" content="#faf6f1" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preload" as="image" href="media/vic-656.webp" fetchpriority="high" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Victoria, Battersea" />
+    <meta property="og:title" content="The Victoria, Battersea · Eat well. Drink better. Stay late." />
+    <meta
+      property="og:description"
+      content="Late night gastropub on Queenstown Road since 1869. Brunch, boozy lunch, Sunday roast, and the bar open till 2am Friday and Saturday."
+    />
+    <meta property="og:image" content="https://alexwilder-dev.github.io/victoria-battersea/media/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+    (() => {
+      try {
+        if (location.hash === '#me') localStorage.setItem('me', '1');
+        if (localStorage.getItem('me') || sessionStorage.getItem('pinged')) return;
+        sessionStorage.setItem('pinged', '1');
+      } catch (e) {}
+      const v = new URLSearchParams(location.search).get('v') || 'untagged';
+      fetch('https://ntfy.sh/YOUR-NTFY-TOPIC', {
+        method: 'POST', body: `${v} opened ${location.pathname}`, keepalive: true
+      }).catch(() => {});
+    })();
+    </script>
+  </body>
+</html>

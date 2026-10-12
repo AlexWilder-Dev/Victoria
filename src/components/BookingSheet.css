@@ -1,0 +1,343 @@
+.sheet-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 9, 7, 0.62);
+  backdrop-filter: blur(3px);
+}
+.sheet {
+  position: absolute;
+  inset: auto 0 0 0;
+  max-height: 94svh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+@media (min-width: 900px) {
+  .sheet {
+    inset: 0 0 0 auto;
+    width: min(520px, 100vw);
+    max-height: none;
+    border-radius: 0;
+    clip-path: polygon(48px 0, 100% 0, 100% 100%, 0 100%);
+    padding-left: 28px;
+  }
+}
+.sheet__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px var(--pad) 14px;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .sheet__head {
+    padding: 34px 36px 18px;
+  }
+}
+.sheet__grab {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 44px;
+  height: 4px;
+  margin-left: -22px;
+  border-radius: 4px;
+  background: var(--line);
+}
+@media (min-width: 900px) {
+  .sheet__grab {
+    display: none;
+  }
+}
+.sheet__close {
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sheet__body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px var(--pad) 0;
+  display: grid;
+  gap: 26px;
+}
+@media (min-width: 900px) {
+  .sheet__body {
+    padding: 22px 36px 0;
+  }
+}
+
+.field {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+.field legend {
+  padding: 0;
+  margin-bottom: 10px;
+}
+.field .label {
+  display: block;
+}
+.field__err {
+  font-family: var(--type);
+  font-size: 0.82rem;
+  color: var(--red);
+}
+.field__hint {
+  font-size: 0.95rem;
+}
+.inline-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1.5px solid var(--fg);
+  background: transparent;
+  padding: 10px 0 8px;
+  font-size: 1.1rem;
+  border-radius: 0;
+}
+.field textarea {
+  resize: vertical;
+  font-size: 1rem;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--gilt-deep);
+  box-shadow: 0 1.5px 0 var(--gilt-deep);
+}
+.field--pair {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 480px) {
+  .field--pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Days: a scroller of the next four weeks, deals marked */
+.days {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 74px;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-inline: calc(var(--pad) * -1);
+  padding-inline: var(--pad);
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+@media (min-width: 900px) {
+  .days {
+    margin-inline: 0 -36px;
+    padding-inline: 0 36px;
+  }
+}
+.day {
+  scroll-snap-align: start;
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 2px;
+  min-height: 104px;
+  padding: 10px 10px 8px;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: transparent;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: background-color 0.2s;
+}
+.day:hover:not(:disabled) {
+  background: var(--chip);
+}
+.day__num {
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 500;
+  font-variation-settings: 'opsz' 60;
+}
+.day__dow,
+.day__mon {
+  font-size: 0.66rem;
+}
+.day__tag {
+  margin-top: 4px;
+  font-family: var(--type);
+  font-size: 0.64rem;
+  line-height: 1.15;
+  color: var(--gilt-deep);
+  font-weight: 700;
+}
+.day.is-on {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+.day.is-on .day__tag {
+  color: var(--gilt);
+}
+.day:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+}
+.slot {
+  padding: 11px 4px 9px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.slot small {
+  font-weight: 400;
+  font-size: 0.72em;
+  margin-left: 1px;
+}
+.slot:hover {
+  background: var(--chip);
+}
+.slot.is-on {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.stepper button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--fg);
+  background: transparent;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.stepper button:disabled {
+  opacity: 0.3;
+}
+.stepper output {
+  min-width: 7.5em;
+  font-size: 1.1rem;
+}
+.stepper__n {
+  font-family: var(--type);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.occasions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.occ {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 10px 14px 9px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.occ small {
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+.occ.is-on {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+.occ.is-on small {
+  color: var(--gilt);
+}
+.occ.is-elsewhere:not(.is-on) {
+  border-style: dashed;
+}
+
+.sheet__foot {
+  position: sticky;
+  bottom: 0;
+  margin-inline: calc(var(--pad) * -1);
+  padding: 14px var(--pad) calc(14px + env(safe-area-inset-bottom));
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+}
+@media (min-width: 900px) {
+  .sheet__foot {
+    margin-inline: -36px;
+    padding-inline: 36px;
+  }
+}
+.sheet__submit {
+  width: 100%;
+}
+.sheet__fine {
+  font-size: 0.66rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.sheet__done {
+  padding-bottom: 32px;
+  align-content: start;
+}
+.ticket {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 26px 24px 28px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 28px) 100%, 0 100%);
+}
+.ticket__typed {
+  white-space: pre-line;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.ticket__big {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gilt);
+}
+.sheet__done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}

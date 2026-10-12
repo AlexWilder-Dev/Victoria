@@ -1,0 +1,74 @@
+.score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 28px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--fg);
+}
+.score__num {
+  font-size: clamp(7rem, 22vw, 16rem);
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+}
+.score__meta {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 0.6rem;
+}
+.score__stars {
+  display: flex;
+  gap: 4px;
+}
+.score__stars svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--hi);
+}
+.score__stars svg.is-part {
+  /* 4.7 of 5 */
+  -webkit-mask-image: linear-gradient(90deg, #000 70%, rgba(0, 0, 0, 0.22) 70%);
+  mask-image: linear-gradient(90deg, #000 70%, rgba(0, 0, 0, 0.22) 70%);
+}
+
+.quotes {
+  margin-top: clamp(40px, 6vw, 80px);
+  display: grid;
+  gap: 56px;
+}
+.quote {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+.quote blockquote p {
+  font-size: clamp(1.7rem, 3.6vw, 3rem);
+  line-height: 1.08;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 72;
+}
+.quote__src {
+  color: var(--muted);
+}
+.quote .link-arrow {
+  background: none;
+  border: 0;
+  border-bottom: 1.5px solid currentColor;
+  padding: 0.6em 0;
+}
+@media (min-width: 1000px) {
+  .quotes {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 72px 32px;
+  }
+  .quote--0 {
+    grid-column: 1 / span 8;
+  }
+  .quote--1 {
+    grid-column: 6 / span 7;
+  }
+  .quote--2 {
+    grid-column: 2 / span 7;
+  }
+}

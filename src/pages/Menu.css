@@ -1,0 +1,337 @@
+.menu {
+  min-height: 100vh;
+  padding-top: calc(var(--header-h) + clamp(32px, 6vw, 72px));
+  padding-bottom: calc(var(--rise) + 48px);
+}
+.menu__head {
+  display: grid;
+  gap: 14px;
+}
+.menu__head .tone-good {
+  color: #2f8a52;
+}
+.pal-ink .menu__head .tone-good {
+  color: #7fd09b;
+}
+.menu__head .tone-off {
+  color: var(--red);
+}
+.menu__title {
+  font-size: clamp(3rem, 11vw, 8.4rem);
+}
+.menu__title em {
+  color: var(--hi);
+  display: block;
+  padding-left: 0.55em;
+}
+
+/* Sticky tabs and filters */
+.menu__bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 20;
+  margin-top: clamp(28px, 4vw, 48px);
+  background: var(--bg);
+  border-block: 1px solid var(--line);
+}
+.menu__bar > .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 24px;
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--pad) * -1);
+  padding-inline: var(--pad);
+  max-width: calc(100% + var(--pad) * 2);
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tab {
+  position: relative;
+  isolation: isolate;
+  flex: none;
+  padding: 16px 14px 14px;
+  font-family: var(--type);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tab__short {
+  display: none;
+}
+@media (max-width: 599px) {
+  .tab {
+    padding-inline: 10px;
+    font-size: 0.8rem;
+  }
+  .tab__long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .tab__short {
+    display: inline;
+  }
+}
+.tab.is-on {
+  color: var(--bg);
+}
+.tab__mark {
+  position: absolute;
+  inset: 8px 0;
+  z-index: -1;
+}
+.tab__mark span {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: skewX(-12deg);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 0 12px;
+}
+@media (min-width: 1000px) {
+  .chips {
+    padding: 0;
+  }
+  .tabs {
+    margin-inline: 0;
+    padding-inline: 0;
+    max-width: none;
+  }
+}
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 7px 11px 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--type);
+  font-size: 0.78rem;
+}
+.chip b {
+  font-weight: 700;
+}
+.chip span {
+  color: var(--muted);
+}
+.chip.is-on {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+.chip.is-on span {
+  color: inherit;
+  opacity: 0.75;
+}
+.chip--clear {
+  border-style: dashed;
+}
+
+.menu__body {
+  padding-top: clamp(28px, 4vw, 56px);
+}
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-bottom: 18px;
+  font-size: 0.84rem;
+}
+.jump button {
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* A menu section */
+.msec {
+  padding-top: clamp(28px, 4vw, 48px);
+  margin-bottom: clamp(28px, 4vw, 48px);
+  scroll-margin-top: calc(var(--header-h) + 120px);
+}
+.msec__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--fg);
+}
+.msec__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 96;
+}
+.wines .msec__title {
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--fg);
+}
+.msec__price {
+  color: var(--hi);
+  font-size: 1rem;
+}
+.msec__note {
+  margin-top: 14px;
+  font-style: italic;
+  max-width: 44em;
+  color: var(--muted);
+}
+.msec__sub {
+  margin: 26px 0 0;
+  color: var(--hi);
+}
+
+.dishes {
+  display: grid;
+}
+@media (min-width: 1000px) {
+  .msec--snacks .dishes,
+  .msec--mains .dishes,
+  .msec--brunch .dishes {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 56px;
+  }
+}
+.dish {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 16px;
+  align-items: baseline;
+  padding: 15px 0 14px;
+  border-bottom: 1px solid var(--line);
+}
+.dish__name {
+  font-size: 1.16rem;
+  font-weight: 600;
+  line-height: 1.25;
+  font-variation-settings: 'opsz' 24;
+}
+.dish__name .tag {
+  margin-left: 7px;
+}
+.dish__price {
+  font-size: 1.02rem;
+}
+.dish__desc {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.menu__empty {
+  padding: 48px 0;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+/* Wine */
+.wines__key {
+  font-size: 0.82rem;
+}
+.wine-list {
+  display: grid;
+}
+.wine {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 14px 0 13px;
+  border-bottom: 1px solid var(--line);
+}
+.wine-list--bottles .wine {
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+}
+.wine__name {
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.25;
+  font-variation-settings: 'opsz' 24;
+}
+.wine__origin {
+  display: block;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.wine__prices {
+  display: flex;
+  gap: 18px;
+  font-size: 0.98rem;
+}
+.wine__prices > span {
+  display: grid;
+  min-width: 4.6em;
+}
+.wine__prices small {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+@media (min-width: 760px) {
+  .wine {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+  .wine__prices {
+    gap: 28px;
+  }
+}
+.wine--lit .wine__name,
+.wine--lit .price {
+  color: var(--hi);
+  text-shadow: 0 0 18px rgba(217, 178, 95, 0.55);
+  animation: lit 3.2s ease-in-out infinite;
+}
+@keyframes lit {
+  50% {
+    text-shadow: 0 0 4px rgba(217, 178, 95, 0.2);
+  }
+}
+
+.menu__cta {
+  margin-top: clamp(56px, 8vw, 96px);
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.menu__cta-line {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.menu__cta-line em {
+  font-weight: 400;
+  color: var(--hi);
+}
