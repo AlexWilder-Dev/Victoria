@@ -10,6 +10,7 @@ export interface Photo {
 
 export interface Clip {
   mp4: string
+  webm: string
   poster: string
   w: number
   h: number
@@ -68,6 +69,7 @@ export const PHOTOS = {
 
 const clip = (name: string, w: number, h: number, alt: string): Clip => ({
   mp4: `${B}${name}.mp4`,
+  webm: `${B}${name}.webm`,
   poster: `${B}${name}-${Math.max(w, h) === 1280 && w > h ? 1280 : 720}.webp`,
   w,
   h,

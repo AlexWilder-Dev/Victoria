@@ -39,7 +39,7 @@ It also works inside the hash, e.g. `#/menu?at=sat-11:00`.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173/victoria-battersea/
+npm run dev      # http://localhost:5173/
 npm run build    # outputs to dist/
 npm run preview
 ```
@@ -55,7 +55,15 @@ All photos and clips are the pub's own, pulled from their current site. Original
 
 ## Deploy
 
-Vite + React + TypeScript + Framer Motion, using HashRouter with base `/victoria-battersea/`. `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `main`.
+Vite + React + TypeScript + Framer Motion, using HashRouter. Asset paths are relative, so the same build works at any path, e.g. `/Victoria/` or `/victoria-battersea/`.
+
+Live: https://alexwilder-dev.github.io/Victoria/
+
+```bash
+./scripts/deploy-pages.sh   # builds and publishes dist/ to the gh-pages branch
+```
+
+GitHub Pages serves the `gh-pages` branch (Settings → Pages → Deploy from a branch → `gh-pages` / root). `.github/workflows/deploy.yml` does the same publish on every push to `main`.
 
 ---
 

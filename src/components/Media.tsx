@@ -44,6 +44,15 @@ export function LoopVideo({ clip, className = 'media-fill', position }: ClipProp
   const inView = useInView(ref, { margin: '200px 0px' })
   const still = reduce || failed || saveData()
 
+  // Poster takes over only if the last source fails too. A skipped source also fires
+  // "error", so listen natively on the last one rather than on the element.
+  useEffect(() => {
+    const last = ref.current?.querySelector('source:last-of-type')
+    const fail = () => setFailed(true)
+    last?.addEventListener('error', fail)
+    return () => last?.removeEventListener('error', fail)
+  }, [still])
+
   useEffect(() => {
     const v = ref.current
     if (!v || still) return
@@ -77,9 +86,9 @@ export function LoopVideo({ clip, className = 'media-fill', position }: ClipProp
       playsInline
       preload="none"
       aria-label={clip.alt}
-      onError={() => setFailed(true)}
     >
-      <source src={clip.mp4} type="video/mp4" onError={() => setFailed(true)} />
+      <source src={clip.mp4} type='video/mp4; codecs="avc1.64001F"' />
+      <source src={clip.webm} type='video/webm; codecs="vp9"' />
     </video>
   )
 }

@@ -8,7 +8,10 @@ enc() { # name, scale filter, trim seconds
   [ -f "$in" ] || { echo "missing $in (poster will be used)"; return; }
   ffmpeg -v error -y -t "$3" -i "$in" -an -vf "$2,fps=30,format=yuv420p" \
     -c:v libx264 -profile:v high -preset slow -crf 27 -movflags +faststart "$out"
-  echo "$out $(du -h "$out" | cut -f1)"
+  # VP9 for browsers built without H.264
+  ffmpeg -v error -y -t "$3" -i "$in" -an -vf "$2,fps=30,format=yuv420p" \
+    -c:v libvpx-vp9 -b:v 0 -crf 38 -row-mt 1 -deadline good -cpu-used 2 "${out%.mp4}.webm"
+  echo "$out $(du -h "$out" | cut -f1), webm $(du -h "${out%.mp4}.webm" | cut -f1)"
 }
 enc screens "scale=540:-2" 7
 enc dogs "scale=540:-2" 30
