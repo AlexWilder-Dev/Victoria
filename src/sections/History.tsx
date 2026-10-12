@@ -1,6 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useTonight } from '../lib/tonight'
 import { pal } from '../lib/surface'
+import { PHOTOS } from '../lib/media'
+import { Pic, Wedge } from '../components/Media'
 import './History.css'
 
 type Part = { t: string; struck?: boolean; added?: boolean }
@@ -102,15 +104,24 @@ export function History() {
           </p>
         </div>
 
-        <ol className="reg typed">
-          {REGISTER.map((r, i) => (
-            <li key={r.year} className="reg__row">
-              <span className="reg__year">{r.year}</span>
-              <Entry line={r.line} i={i} />
-              <span className="reg__note">{r.note}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="history__body">
+          <figure className="history__photo">
+            <Wedge cut={18}>
+              <Pic photo={PHOTOS.vic} sizes="(min-width: 1000px) 320px, 62vw" />
+            </Wedge>
+            <figcaption className="label muted">Same corner, same wedge</figcaption>
+          </figure>
+
+          <ol className="reg typed">
+            {REGISTER.map((r, i) => (
+              <li key={r.year} className="reg__row">
+                <span className="reg__year">{r.year}</span>
+                <Entry line={r.line} i={i} />
+                <span className="reg__note">{r.note}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )

@@ -76,7 +76,7 @@ export function Parties() {
             </p>
           </div>
           <Wedge className="parties__photo" cut={30}>
-            <Pic photo={PHOTOS.home} sizes="(min-width: 1000px) 40vw, 100vw" position="50% 72%" />
+            <Pic photo={PHOTOS.terrace} sizes="(min-width: 1000px) 40vw, 100vw" position="45% 60%" />
           </Wedge>
         </div>
 

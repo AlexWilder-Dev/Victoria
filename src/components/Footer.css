@@ -1,5 +1,5 @@
 .footer {
-  padding: clamp(56px, 8vw, 104px) 0 calc(28px + var(--bar-h) * 0);
+  padding-bottom: calc(28px + var(--bar-h));
   clip-path: polygon(0 var(--rise), 100% 0, 100% 100%, 0 100%);
   margin-top: calc(var(--rise) * -1);
   padding-top: calc(var(--rise) + clamp(48px, 7vw, 96px));

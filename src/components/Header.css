@@ -7,11 +7,10 @@
     background-color 0.35s,
     box-shadow 0.35s;
 }
-.header:not(.is-solid) {
-  background: transparent;
+.header {
+  background: var(--bg);
 }
 .header.is-solid {
-  background: var(--bg);
   box-shadow: 0 1px 0 var(--line);
 }
 .header__inner {

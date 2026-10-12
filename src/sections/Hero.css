@@ -1,110 +1,62 @@
 .hero {
   position: relative;
   overflow: hidden;
+  padding-top: var(--header-h);
 }
 .hero__stage {
   position: relative;
 }
 
-/* ---------- The building ---------- */
+/* ---------- The picture ---------- */
 
 .facade {
   position: relative;
-  height: max(52svh, 330px);
-  container-type: size;
+  height: max(50svh, 320px);
   overflow: hidden;
   background: #0d0f14;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--rise)), 0 100%);
 }
-.facade__inner {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  translate: -50% 0;
-  width: max(100cqw, calc(100cqh * 656 / 746));
-  aspect-ratio: 656 / 746;
-}
-.facade__img,
-.facade__light {
+.facade__layer {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
 }
 .facade__img {
-  transition: filter 1.6s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 60% 30%;
+  animation: drift 24s ease-in-out infinite alternate;
+  transition: filter 1.2s ease;
 }
-.facade__dusk,
-.facade__glow,
-.facade__light {
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+.facade[data-mode='day'] .facade__img {
+  object-position: 50% 38%;
+}
+.facade[data-mode='evening'] .facade__img {
+  object-position: 62% 24%;
+}
+.facade[data-mode='late'] .facade__img {
+  object-position: 66% 14%;
+  filter: brightness(0.78) saturate(0.9) contrast(1.06);
+}
+/* Darkens the edges after hours, so the lights carry the picture */
+.facade__shade {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
+  background: radial-gradient(ellipse 90% 80% at 62% 30%, transparent 40%, rgba(5, 6, 12, 0.6) 100%);
   opacity: 0;
-  transition: opacity 1.4s ease;
+  transition: opacity 1.2s ease;
 }
-.facade__dusk {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #23377a 0%, #2c3060 26%, #3a3040 50%, #1a1512 100%);
-  mix-blend-mode: multiply;
-}
-.facade__light--gold {
-  filter: brightness(1.75) saturate(1.45) contrast(1.12);
-}
-.facade__light--lamp {
-  filter: brightness(2.1) saturate(1.4);
-}
-.facade__light--sign {
-  filter: brightness(1.15) contrast(1.05);
-}
-.facade__light--window {
-  filter: brightness(1.15) sepia(0.5) saturate(1.7) hue-rotate(-8deg);
-}
-.facade__glow {
-  position: absolute;
-  inset: 0;
-  mix-blend-mode: screen;
-  transition-delay: 0.9s;
-  background:
-    radial-gradient(ellipse 14% 3% at 49.7% 61.6%, rgba(255, 205, 120, 0.5), transparent 100%),
-    radial-gradient(
-      circle at 82.6% 66.6%,
-      rgba(255, 220, 150, 0.95) 0,
-      rgba(255, 170, 80, 0.35) 1.4%,
-      transparent 4.5%
-    ),
-    radial-gradient(circle at 24.5% 41.7%, rgba(255, 220, 150, 0.85) 0, rgba(255, 180, 90, 0.25) 1%, transparent 3.5%),
-    radial-gradient(ellipse 6% 4% at 76% 66%, rgba(255, 170, 80, 0.35), transparent 100%),
-    radial-gradient(ellipse 4% 3% at 43% 67.6%, rgba(255, 170, 80, 0.35), transparent 100%);
-  animation: hum 7s ease-in-out infinite;
-}
-@keyframes hum {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.15);
-  }
-}
-
-.facade[data-lit='evening'] .facade__img {
-  filter: brightness(0.85) saturate(0.85) contrast(1.05);
-}
-.facade[data-lit='evening'] .facade__dusk {
-  opacity: 0.82;
-}
-.facade[data-lit='late'] .facade__img {
-  filter: brightness(0.74) saturate(0.75) contrast(1.08);
-}
-.facade[data-lit='late'] .facade__dusk {
-  opacity: 0.94;
-}
-.facade[data-lit='evening'] :is(.facade__light, .facade__glow),
-.facade[data-lit='late'] :is(.facade__light, .facade__glow) {
+.facade[data-mode='late'] .facade__shade {
   opacity: 1;
-}
-.facade[data-lit='evening'] .facade__light--window {
-  opacity: 0.8;
 }
 
 /* ---------- Tile: what the hour is about ---------- */
@@ -114,7 +66,8 @@
   z-index: 2;
   margin: 0;
   right: 16px;
-  top: calc(max(52svh, 330px) - var(--rise) - 36vw);
+  /* bottom sits just over the picture's lower edge, clear of the copy */
+  top: calc(max(50svh, 320px) - 41.3vw + 6px);
   width: 31vw;
   aspect-ratio: 3 / 4;
   background: #000;
@@ -123,7 +76,7 @@
 .hero__tile--wide {
   width: 46vw;
   aspect-ratio: 16 / 10;
-  top: calc(max(52svh, 330px) - var(--rise) - 26vw);
+  top: calc(max(50svh, 320px) - 28.75vw + 6px);
 }
 .hero__tile img,
 .hero__tile video {
@@ -137,7 +90,8 @@
   right: 0;
   bottom: 0;
   padding: 26px 10px 8px;
-  font-size: 0.6rem;
+  font-size: 0.62rem;
+  line-height: 1.35;
   color: var(--cream);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
 }
@@ -147,7 +101,7 @@
 .hero__copy {
   position: relative;
   z-index: 2;
-  padding: 18px var(--pad) 36px;
+  padding: 22px var(--pad) 32px;
 }
 .hero__kicker {
   color: var(--hi);
@@ -186,6 +140,7 @@
 
 @media (min-width: 900px) {
   .hero {
+    padding-top: 0;
     min-height: max(100svh, 760px);
     display: grid;
     grid-template-rows: 1fr auto;

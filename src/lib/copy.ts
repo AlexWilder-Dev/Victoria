@@ -112,7 +112,7 @@ export interface HeroCopy {
   sub: string
   book: { label: string; occasion?: Occasion['id'] }
   more: { label: string; to: string }
-  tile: 'outside' | 'burger' | 'steak' | 'frozen' | 'home' | 'screens'
+  tile: 'cheers' | 'burger' | 'steak' | 'frozen' | 'home'
   tileCaption: string
 }
 
@@ -133,7 +133,7 @@ export function heroCopy(s: Status): HeroCopy {
         sub: `Get some sleep. ${relDay(next.day, s)} it's ${next.deal.name}${next.deal.price && !next.deal.price.startsWith('+') ? `, ${next.deal.price}` : ''}, and you can book it now.`,
         book: { label: 'Book a table' },
         more: { label: 'See the week', to: '#week' },
-        tile: 'screens',
+        tile: 'frozen',
         tileCaption: 'See you tomorrow',
       }
     }
@@ -149,7 +149,7 @@ export function heroCopy(s: Status): HeroCopy {
           : `Kitchen's back at ${fmtTime(nextOpen(day))} tomorrow. Until then, there's the bar.`,
       book: { label: 'Book a table' },
       more: { label: 'Late at The Vic', to: '#late' },
-      tile: 'screens',
+      tile: 'frozen',
       tileCaption: `Open till ${fmtTime(s.bar.span.close)}`,
     }
   }
@@ -225,8 +225,8 @@ export function heroCopy(s: Status): HeroCopy {
       sub: `${open}. Brunch 12–4pm. Boozy lunch 12–3pm: add £25 for 7 drinks, no time limit on drinking them. Seasonal spritzes 2 for £16 till 4.`,
       book: { label: 'Book brunch', occasion: 'brunch' },
       more: { label: 'Brunch menu', to: '/menu/brunch' },
-      tile: 'outside',
-      tileCaption: 'Outside · heaters & awnings',
+      tile: 'cheers',
+      tileCaption: 'Boozy lunch · 12–3pm',
     }
   if (day === 'sun')
     return {
@@ -235,8 +235,8 @@ export function heroCopy(s: Status): HeroCopy {
       sub: `${open}. Every roast comes with Yorkshire pudding, roast potatoes and chef's red wine jus. Boozy lunch 12–3pm, spritzes 2 for £16 till 4.`,
       book: { label: 'Book a roast', occasion: 'roast' },
       more: { label: 'Roast menu', to: '/menu/roast' },
-      tile: 'outside',
-      tileCaption: 'Outside · heaters & awnings',
+      tile: 'cheers',
+      tileCaption: 'Boozy lunch · 12–3pm',
     }
   if (day === 'fri')
     return {
@@ -245,8 +245,8 @@ export function heroCopy(s: Status): HeroCopy {
       sub: `${open}. Lunch from noon, Happy Friday from 8, and the bar's open till 2am.`,
       book: { label: 'Book Friday', occasion: 'dinner' },
       more: { label: 'See the menu', to: '/menu/food' },
-      tile: 'outside',
-      tileCaption: 'Outside · heaters & awnings',
+      tile: 'cheers',
+      tileCaption: 'Happy Friday · from 8pm',
     }
   const tonight =
     day === 'mon'
@@ -263,7 +263,7 @@ export function heroCopy(s: Status): HeroCopy {
       occasion: day === 'mon' || day === 'thu' ? 'dinner' : undefined,
     },
     more: { label: 'See the week', to: '#week' },
-    tile: 'outside',
-    tileCaption: 'Outside · heaters & awnings',
+    tile: 'cheers',
+    tileCaption: 'Boozy lunch · Sat & Sun',
   }
 }

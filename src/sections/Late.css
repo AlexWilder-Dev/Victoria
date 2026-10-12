@@ -123,6 +123,15 @@
 .fizz__glass {
   font-size: 0.8rem;
   color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 599px) {
+  .fizz__glass {
+    display: block;
+  }
+  .happy__photo {
+    aspect-ratio: 1 / 1;
+  }
 }
 
 /* The light-up bottle gets to light up */

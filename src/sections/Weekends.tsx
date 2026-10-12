@@ -44,7 +44,7 @@ export function Weekends() {
               Any meal from the main, brunch or roast menu. Add £25 for 7 drinks from a selected list, with{' '}
               <strong>no time limit on drinking them</strong>.
             </p>
-            <p className="boozy__spritz typed">+ Seasonal spritzes, Sat &amp; Sun 12–4pm: 2 for £16</p>
+            <p className="boozy__spritz typed">+ Seasonal spritzes 2&nbsp;for&nbsp;£16, Sat &amp; Sun 12–4pm</p>
             <button className="btn" onClick={() => open({ occasion: 'boozy' })}>
               Book boozy lunch
             </button>

@@ -1,6 +1,6 @@
 .food__grid {
   display: grid;
-  gap: clamp(40px, 6vw, 96px);
+  gap: clamp(64px, 6vw, 96px);
 }
 @media (min-width: 1000px) {
   .food__grid {

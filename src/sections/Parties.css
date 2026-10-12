@@ -93,7 +93,14 @@
 }
 @media (max-width: 599px) {
   .madlib__text {
-    line-height: 1.75;
+    font-size: 1.4rem;
+    line-height: 2.05;
+  }
+  .blank {
+    font-size: 0.78em;
+  }
+  .blank--date {
+    width: 8.6em;
   }
   .blank--wide {
     width: 8.6em;

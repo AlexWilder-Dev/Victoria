@@ -15,7 +15,7 @@
   justify-items: start;
 }
 .find__addr {
-  font-size: clamp(2.3rem, 4.4vw, 4.4rem);
+  font-size: clamp(1.95rem, 4.4vw, 4.4rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
   font-weight: 500;
@@ -79,9 +79,19 @@
   margin-left: 6px;
   vertical-align: 2px;
 }
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .hours__table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+  .hours__table th,
+  .hours__table td {
+    padding-right: 4px;
+  }
+  .hours__table tbody th {
+    font-size: 0.98rem;
+  }
+  .hours__today {
+    display: none;
   }
 }
 

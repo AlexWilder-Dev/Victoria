@@ -1,68 +1,44 @@
-import { useEffect, useState, type CSSProperties } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { type CSSProperties } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTonight } from '../lib/tonight'
 import { useBooking } from '../lib/booking'
 import { heroCopy } from '../lib/copy'
 import { pal } from '../lib/surface'
-import { CLIPS, PHOTOS } from '../lib/media'
-import { LoopVideo, Pic } from '../components/Media'
+import { PHOTOS } from '../lib/media'
+import { Pic } from '../components/Media'
 import { GoLink } from '../components/GoLink'
 import { TonightStrip } from '../components/TonightStrip'
 import './Hero.css'
 
-/**
- * Parts of the photo that light up after dark, as soft ellipses (centre x y, radius x y, % of the image):
- * the gold VICTORIA over the door, the 166 plaque, the lantern, the hanging Penny Black sign and the windows.
- */
-const LIGHTS = [
-  { at: '49.7% 61.7%', r: '14.5% 3.8%', kind: 'gold' },
-  { at: '51.1% 67.4%', r: '7% 3%', kind: 'gold' },
-  { at: '82.6% 67%', r: '3.8% 4.8%', kind: 'lamp' },
-  { at: '17.7% 49%', r: '7.5% 10%', kind: 'sign' },
-  { at: '75% 70%', r: '8% 9.5%', kind: 'window' },
-  { at: '43.2% 72%', r: '3.6% 8%', kind: 'window' },
-  { at: '97% 69%', r: '5% 7%', kind: 'window' },
-]
-
-/** The building itself. After 5pm the sky goes and the pub lights up. */
-function Facade({ mode }: { mode: string }) {
-  const reduce = useReducedMotion()
-  // Lights come on a beat after load, like walking up at dusk.
-  const [lit, setLit] = useState(reduce ? mode : 'day')
-  useEffect(() => {
-    if (reduce) return setLit(mode)
-    const t = window.setTimeout(() => setLit(mode), 450)
-    return () => window.clearTimeout(t)
-  }, [mode, reduce])
-
+/** Daylight on the fascia; the sign under festoon lights once it's dark. Crossfades as the day turns. */
+function Scene({ mode }: { mode: string }) {
+  const night = mode !== 'day'
   return (
-    <div className="facade" data-lit={lit}>
-      <div className="facade__inner">
-        <Pic photo={PHOTOS.vic} eager className="facade__img" sizes="(min-width: 900px) 50vw, 100vw" />
-        <div className="facade__dusk" aria-hidden="true" />
-        {LIGHTS.map((l, i) => (
-          <img
-            key={i}
-            src={PHOTOS.vic.src}
-            alt=""
-            aria-hidden="true"
-            className={`facade__light facade__light--${l.kind}`}
-            style={{
-              maskImage: `radial-gradient(ellipse ${l.r} at ${l.at}, #000 45%, transparent 100%)`,
-              WebkitMaskImage: `radial-gradient(ellipse ${l.r} at ${l.at}, #000 45%, transparent 100%)`,
-              transitionDelay: `${0.4 + i * 0.12}s`,
-            }}
+    <div className="facade" data-mode={mode}>
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={night ? 'night' : 'day'}
+          className="facade__layer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+        >
+          <Pic
+            photo={night ? PHOTOS.heroNight : PHOTOS.heroDay}
+            eager
+            className="facade__img"
+            sizes="(min-width: 900px) 53vw, 100vw"
           />
-        ))}
-        <div className="facade__glow" aria-hidden="true" />
-      </div>
+        </motion.div>
+      </AnimatePresence>
+      <div className="facade__shade" aria-hidden="true" />
     </div>
   )
 }
 
 const TILES = {
-  outside: { clip: CLIPS.outside, shape: 'wide' },
-  screens: { clip: CLIPS.screens, shape: 'tall' },
+  cheers: { photo: PHOTOS.cheers, shape: 'wide' },
   burger: { photo: PHOTOS.burger, shape: 'tall' },
   steak: { photo: PHOTOS.steak, shape: 'tall' },
   frozen: { photo: PHOTOS.frozen, shape: 'tall' },
@@ -85,7 +61,7 @@ export function Hero() {
   return (
     <section className={`hero ${pal('hero', s.mode)}`} aria-labelledby="hero-title">
       <div className="hero__stage">
-        <Facade mode={s.mode} />
+        <Scene mode={s.mode} />
 
         <AnimatePresence mode="wait">
           <motion.figure
@@ -102,7 +78,7 @@ export function Hero() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: [0.7, 0, 0.2, 1], delay: 0.5 }}
           >
-            {'clip' in tile ? <LoopVideo clip={tile.clip} /> : <Pic photo={tile.photo} sizes="260px" />}
+            <Pic photo={tile.photo} sizes="(min-width: 900px) 340px, 46vw" />
             <figcaption className="label">{copy.tileCaption}</figcaption>
           </motion.figure>
         </AnimatePresence>

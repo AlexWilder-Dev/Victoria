@@ -19,6 +19,11 @@ PHOTOS = {
     "dogs": ("dogs-poster.jpg", None, [720]),
     "games": ("games-poster.jpg", None, [720]),
     "outside": ("outside-poster.jpg", None, [1280]),
+    # Hero: the packed terrace in daylight, and the sign at blue hour (from the screens clip)
+    "hero-day": ("home.jpg", None, [900, 1440]),
+    "hero-night": ("screens-poster.jpg", (260, 0, 2160, 2100), [900, 1600]),
+    # Parties: groups round the terrace tables (from the outside clip)
+    "terrace": ("outside-poster.jpg", (500, 0, 3700, 2160), [800, 1400]),
 }
 
 
@@ -35,7 +40,7 @@ for out, (src, box, widths) in PHOTOS.items():
     for w in widths:
         w = min(w, im.width)
         h = round(im.height * w / im.width)
-        im.resize((w, h), Image.LANCZOS).save(OUT / f"{out}-{w}.webp", quality=80, method=6)
+        im.resize((w, h), Image.LANCZOS).save(OUT / f"{out}-{w}.webp", quality=82 if out.startswith("hero") else 80, method=6)
         print(f"{out}-{w}.webp", w, h)
 
 # Queen's head from the logo, for the wordmark and icons

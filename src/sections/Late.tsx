@@ -68,7 +68,7 @@ export function Late() {
                 <li key={w.name} className={w.sparkle ? 'fizz__dom' : ''}>
                   <span className="fizz__name">
                     {w.name}
-                    {w.glass && <span className="fizz__glass typed"> · glass {w.glass}</span>}
+                    {w.glass && <span className="fizz__glass typed"> Glass {w.glass}</span>}
                   </span>
                   <span className="price">{w.bottle}</span>
                 </li>

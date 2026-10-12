@@ -63,6 +63,12 @@
   color: var(--muted);
   font-size: 0.7rem;
 }
+@media (max-width: 899px) {
+  .strip__cell--on {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
 .strip__cell dd {
   margin: 0;
 }

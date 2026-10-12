@@ -59,6 +59,24 @@ export const PHOTOS = {
     1238 / 1000,
     'Frozen cocktails, strawberry and lime, with chilli-salt rims and fresh mint',
   ),
+  heroDay: photo(
+    'hero-day',
+    [900, 1440],
+    1800 / 1440,
+    'The terrace from above at golden hour, packed with people at long tables under festoon lights, The Victoria sign in the middle',
+  ),
+  terrace: photo(
+    'terrace',
+    [800, 1400],
+    2160 / 3200,
+    'Groups round the terrace tables under big umbrellas and festoon lights, with the sky going gold behind',
+  ),
+  heroNight: photo(
+    'hero-night',
+    [900, 1600],
+    2100 / 1900,
+    "The Victoria's hanging sign over the terrace at dusk, strung with festoon lights, green umbrellas and a packed crowd below",
+  ),
   cheers: photo(
     'cheers',
     [700, 1200],
