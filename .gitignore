@@ -3,3 +3,4 @@ dist
 media-src
 *.log
 .DS_Store
+*.tsbuildinfo
